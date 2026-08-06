@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 这里的 namespace 必须和 Go 中定义的 UserRepository 接口完整路径一字不差 -->
+<mapper namespace="go-server.dao.BrandDao">
+
+
+    <select id="GetHotBlog">
+        SELECT * from pms_brand
+    </select>
+
+
+</mapper>

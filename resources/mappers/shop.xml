@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 这里的 namespace 必须和 Go 中定义的 UserRepository 接口完整路径一字不差 -->
+<mapper namespace="go-server.dao.ShopDao">
+
+
+    <select id="GetShopInfoById">
+        SELECT * from tb_shop where id=#{id}
+    </select>
+
+
+    <update id="UpdateShop" >
+        UPDATE tb_shop
+        <trim prefix="SET " prefixOverrides=",">
+            <if test="name != nil">,name = #{name}</if>
+            <if test="type_id != nil">,type_id = #{type_id}</if>
+            <if test="images != nil">,images = #{images}</if>
+            <if test="area != nil">,area = #{area}</if>
+            <if test="address != nil">,address = #{address}</if>
+            <if test="x != nil">,x = #{x}</if>
+            <if test="y != nil">,y = #{y}</if>
+            <if test="avg_price != nil">,avg_price = #{avg_price}</if>
+            <if test="sold != nil">,sold = #{sold}</if>
+            <if test="comments != nil">,comments = #{comments}</if>
+            <if test="score != nil">,score = #{score}</if>
+            <if test="open_hours != nil">,open_hours = #{open_hours}</if>
+            <if test="create_time != nil">
+                ,update_time = #{create_time}
+            </if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <!-- 配置数据库环境 -->
+    <environments default="hmdp">
+        <environment id="gomall">
+            <!-- 数据库连接字符串 -->
+            <dataSource>root:123456@tcp(127.0.0.1:3306)/gomall?charset=utf8mb4&amp;parseTime=True</dataSource>
+            <driver>mysql</driver>
+        </environment>
+
+        <environment id="gulimall_pms">
+            <!-- 数据库连接字符串 -->
+            <dataSource>root:123456@tcp(127.0.0.1:3306)/gulimall_pms?charset=utf8mb4&amp;parseTime=True</dataSource>
+            <driver>mysql</driver>
+        </environment>
+
+
+        <environment id="hmdp">
+            <!-- 数据库连接字符串 -->
+            <dataSource>root:123456@tcp(127.0.0.1:3306)/hmdp?charset=utf8mb4&amp;parseTime=True</dataSource>
+            <driver>mysql</driver>
+        </environment>
+
+    </environments>
+
+    <!-- 引用 SQL 映射文件 -->
+    <mappers>
+        <mapper resource="mappers/user.xml"/>
+        <mapper resource="mappers/category.xml"/>
+        <mapper resource="mappers/brand.xml"/>
+        <mapper resource="mappers/shopType.xml"/>
+        <mapper resource="mappers/blog.xml"/>
+        <mapper resource="mappers/shop.xml"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 这里的 namespace 必须和 Go 中定义的 UserRepository 接口完整路径一字不差 -->
+<mapper namespace="go-server.dao.UserDao">
+
+    <select id="SelectAll" >
+        SELECT * from tb_user
+    </select>
+
+    <select id="SelectByName">
+        SELECT * from tb_user where nick_name = #{nickName}
+    </select>
+
+    <select id="SelectUserByPhone">
+        SELECT * from tb_user where phone = #{phone}
+    </select>
+
+
+    <insert id="Save">
+        INSERT INTO `tb_user`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test='Phone != nil'>phone,</if>
+            <if test='Password != nil'>password,</if>
+            <if test='NickName != nil'>nick_name,</if>
+            <if test="Icon != nil">icon,</if>
+            <if test='CreateTime != nil'>create_time,</if>
+            <if test='UpdateTime != nil'>update_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test='Phone != nil'>#{Phone},</if>
+            <if test='Password != nil'>#{Password},</if>
+            <if test='NickName != nil'>#{NickName},</if>
+            <if test='Icon != nil'>#{Icon},</if>
+            <if test='CreateTime != nil'>#{CreateTime},</if>
+            <if test='UpdateTime != nil'>#{UpdateTime},</if>
+        </trim>
+    </insert>
+
+
+
+</mapper>
