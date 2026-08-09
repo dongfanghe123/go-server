@@ -2,6 +2,7 @@ package main
 
 import (
 	"go-server/dao"
+	"go-server/logger"
 	"go-server/manager"
 	"go-server/router"
 	"go-server/util"
@@ -11,6 +12,8 @@ import (
 )
 
 func main() {
+
+	logger.InitLogger()
 
 	if err := dao.Init("resources/juice.xml"); err != nil {
 		log.Fatal(err)
@@ -22,6 +25,9 @@ func main() {
 	util.Init(1)
 
 	r := router.NewRouter()
+
+	logger.Log.Info().Msg("app start success")
+
 	r.Run(":8081")
 
 }
