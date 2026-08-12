@@ -10,7 +10,7 @@ import (
 var jwtSecret = []byte("hajimi")
 
 type Claims struct {
-	UserID   uint   `json:"user_id"`
+	UserID   uint   `json:"userId"`
 	Username string `json:"username"`
 	// 可以继续添加其他自定义字段...
 

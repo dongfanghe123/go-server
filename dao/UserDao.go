@@ -11,7 +11,7 @@ import (
 
 type UserDao interface {
 	SelectByName(ctx context.Context, params map[string]interface{}) (*model.User, error)
-	Save(ctx context.Context, user *model.User) (int64, error)
+	Save(ctx context.Context, user *model.User) (sql.Result, error)
 	SelectUserByPhone(ctx context.Context, params map[string]interface{}) (*model.User, error)
 }
 
@@ -68,21 +68,16 @@ func (u *UserDaoImpl) SelectUserByPhone(ctx context.Context, params map[string]i
 //	return rows,nil
 //}
 
-func (u *UserDaoImpl) Save(ctx context.Context, user *model.User) (int64, error) {
+func (u *UserDaoImpl) Save(ctx context.Context, user *model.User) (sql.Result, error) {
 	executor := juice.NewGenericManager[*model.User](u.manager).
 		Object(UserDao(u).Save)
 
 	result, err := executor.ExecContext(ctx, user)
 	if err != nil {
-		return -1, err
+		return nil, err
 	}
 
-	rows, err := result.RowsAffected()
-	if err != nil {
-		return -1, err
-	}
-
-	return rows, nil
+	return result, nil
 }
 
 func NewUserDao() UserDao {

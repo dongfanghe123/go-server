@@ -15,7 +15,7 @@
     </select>
 
 
-    <insert id="Save">
+    <insert id="Save"  useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `tb_user`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test='Phone != nil'>phone,</if>

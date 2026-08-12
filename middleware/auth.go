@@ -40,7 +40,6 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 		// 3. 将用户信息存入 Context，供后续 handler 使用
 		c.Set("userID", claims.UserID)
 		c.Set("username", claims.Username)
-		c.Set("claims", claims) // 如果需要更多信息
 
 		c.Next() // 继续执行后续的 handler
 	}
