@@ -55,4 +55,9 @@
     </insert>
 
 
+
+    <select id="GetSeckillInfo">
+        SELECT * from tb_seckill_voucher where voucher_id = #{id}
+    </select>
+
 </mapper>

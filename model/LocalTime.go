@@ -55,3 +55,7 @@ func (t *LocalTime) Scan(v interface{}) error {
 	}
 	return nil
 }
+
+func (t LocalTime) ToTime() time.Time {
+	return time.Time(t)
+}

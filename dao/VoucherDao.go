@@ -14,6 +14,8 @@ type VoucherDao interface {
 	SaveVoucher(ctx context.Context, shop *model.Voucher) (sql.Result, error)
 	//保存秒杀券信息
 	SaveVoucherSeckill(ctx context.Context, shop model.SeckillVoucher) (sql.Result, error)
+
+	GetSeckillInfo(ctx context.Context, params map[string]interface{}) (*model.SeckillVoucher, error)
 }
 
 type VoucherDaoImpl struct {
@@ -28,6 +30,11 @@ func (c *VoucherDaoImpl) SaveVoucher(ctx context.Context, shop *model.Voucher) (
 func (c *VoucherDaoImpl) SaveVoucherSeckill(ctx context.Context, shop model.SeckillVoucher) (sql.Result, error) {
 	executor := c.manager.Object(VoucherDao(c).SaveVoucherSeckill)
 	return executor.ExecContext(ctx, shop)
+}
+
+func (c *VoucherDaoImpl) GetSeckillInfo(ctx context.Context, params map[string]interface{}) (*model.SeckillVoucher, error) {
+	executor := juice.NewGenericManager[*model.SeckillVoucher](c.manager).Object(VoucherDao(c).GetSeckillInfo)
+	return executor.QueryContext(ctx, params)
 }
 
 func NewVoucherDao() VoucherDao {

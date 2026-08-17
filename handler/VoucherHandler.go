@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"fmt"
 	"go-server/entity"
 	"go-server/logger"
 	"go-server/service"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -52,8 +52,25 @@ func (v *VoucherHandler) AddVoucherSeckill(c *gin.Context) {
 }
 
 func (v *VoucherHandler) OrderVoucher(c *gin.Context) {
-	value, _ := c.Get("userID")
-	fmt.Println(value)
-	get, _ := c.Get("username")
-	fmt.Println(get)
+	idStr := c.Param("id")
+
+	// 转换为 int64
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "无效的ID格式",
+		})
+		return
+	}
+
+	err = v.VoucherService.Seckill(c.Request.Context(), id)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"code":    500,
+			"message": err.Error(),
+		})
+		return
+	}
+
 }

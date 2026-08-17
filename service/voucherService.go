@@ -7,6 +7,8 @@ import (
 	"go-server/entity"
 	"go-server/model"
 	"time"
+
+	"github.com/rs/zerolog/log"
 )
 
 type VoucherService struct {
@@ -80,4 +82,28 @@ func (v *VoucherService) AddVoucher(ctx context.Context, req entity.VoucherReq) 
 	}
 
 	return nil
+}
+
+func (v *VoucherService) Seckill(ctx context.Context, id int64) error {
+	//从数据库查询秒杀开始时间和结束时间
+	params := map[string]interface{}{
+		"id": id,
+	}
+
+	seckillInfo, err := v.VoucherDao.GetSeckillInfo(ctx, params)
+	if err != nil {
+		log.Error().Msg("query seckill err" + err.Error())
+		return fmt.Errorf("query seckill err: %v", err)
+	}
+
+	beginTime := seckillInfo.BeginTime
+	endTime := seckillInfo.EndTime
+	now := time.Now()
+
+	if now.Before(beginTime.ToTime()) || now.After(endTime.ToTime()) {
+		return fmt.Errorf("不在秒杀时间内!")
+	}
+
+	return nil
+
 }

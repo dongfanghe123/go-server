@@ -15,10 +15,10 @@ type Voucher struct {
 }
 
 type SeckillVoucher struct {
-	VoucherID  *int64     `param:"voucherId" json:"voucher_id"`
-	Stock      *int64     `param:"stock" json:"stock"`
-	CreateTime *LocalTime `param:"createTime" json:"create_time"`
-	BeginTime  *LocalTime `param:"beginTime" json:"begin_time"`
-	EndTime    *LocalTime `param:"endTime" json:"end_time"`
-	UpdateTime *LocalTime `param:"updateTime" json:"update_time"`
+	VoucherID  *int64     `param:"voucherId" json:"voucher_id" column:"voucher_id"`
+	Stock      *int64     `param:"stock" json:"stock" column:"stock"`
+	CreateTime *LocalTime `param:"createTime" json:"create_time" column:"create_time"`
+	BeginTime  *LocalTime `param:"beginTime" json:"begin_time" column:"begin_time"`
+	EndTime    *LocalTime `param:"endTime" json:"end_time" column:"end_time"`
+	UpdateTime *LocalTime `param:"updateTime" json:"update_time" column:"update_time"`
 }
